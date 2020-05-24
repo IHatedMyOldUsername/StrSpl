@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 import argparse
 
-cliparse = argparse.ArgumentParser(description='Painlessly split your strings')
+cliparse = argparse.ArgumentParser(description='Painlessly split your strings', prog="strspl", usage='%(prog)s [options]')
 cliparse.add_argument("--string", "-s", help="Given input string with ! separating two sides",)
+cliparse.add_argument("--character", "-c", help="Give custom splitting character", default='!')
 args = cliparse.parse_args()
 
 if(args.string == None):
@@ -12,11 +13,11 @@ if(args.string == None):
 index = -1
 for char in args.string:
     index = index + 1
-    if char == '!':
-        print('{} cut at the ! will need an index of {}'.format(args.string, index))
+    if char == args.character:
         print('Forward: [{}:] and [:{}]'.format(index, index))
         print('Reverse: [{}:] and [:{}]'.format(index-len(args.string)+1,index-len(args.string)+1))
         print(args.string[:index] + '   ' + args.string[index+1:])
         exit()
 
-print('Whoops! You forgot the !. ')
+print('Error: You forgot the {}. \n\n'.format(args.character))
+cliparse.print_help()
