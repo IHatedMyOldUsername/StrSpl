@@ -1,15 +1,18 @@
 #!/usr/bin/python3
 import argparse
 
+#Handles argparse
 cliparse = argparse.ArgumentParser(description='Painlessly split your strings', prog="strspl", usage='%(prog)s [options]')
 cliparse.add_argument("--string", "-s", help="Given input string with ! separating two sides",)
 cliparse.add_argument("--character", "-c", help="Give custom splitting character", default='!')
 args = cliparse.parse_args()
 
+#Display help if there's no input string
 if(args.string == None):
     cliparse.print_help()
     exit()
 
+#Main function, displays index when it finds character
 index = -1
 for char in args.string:
     index = index + 1
@@ -19,5 +22,6 @@ for char in args.string:
         print(args.string[:index] + '   ' + args.string[index+1:])
         exit()
 
+#Creates error when string isn't included
 print('Error: You forgot the {}. \n\n'.format(args.character))
 cliparse.print_help()
