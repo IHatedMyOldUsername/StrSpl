@@ -5,12 +5,17 @@ cliparse = argparse.ArgumentParser(description='Painlessly split your strings')
 cliparse.add_argument("--string", "-s", help="Given input string with ! separating two sides",)
 args = cliparse.parse_args()
 
+if(args.string == None):
+    cliparse.print_help()
+    exit()
+
 index = -1
 for char in args.string:
     index = index + 1
     if char == '!':
         print('{} cut at the ! will need an index of {}'.format(args.string, index))
-        print('The indices will be as follows: [{}:] and [:{}] for forward strings'.format(index, index))
+        print('Forward: [{}:] and [:{}]'.format(index, index))
+        print('Reverse: [{}:] and [:{}]'.format(index-len(args.string)+1,index-len(args.string)+1))
         print(args.string[:index] + '   ' + args.string[index+1:])
         exit()
 
